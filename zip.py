@@ -15,12 +15,10 @@ if len(repo.untracked_files) != 0:
 changed = [item.a_path for item in repo.index.diff(None)]
 
 ALLOW_CHANGED = [
-    "backend/Makefile",
-    "backend/utils/register_params_check.py",
-    "backend/tests/test_basic.py",
-    "backend/tests/test_api.py",
-    "backend/tests/test_e2e.py",
-    "backend/.flake8",
+    "backend/Dockerfile",
+    "backend/docker-compose.yml",
+    "backend/nginx/app.conf",
+    "backend/app/settings_prod.py",
     "report.pdf"
 ]
 

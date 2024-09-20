@@ -104,22 +104,6 @@ class SeleniumTestCase(LiveServerTestCase):
             '//*[@id="root"]/div/div[3]/div/button').click()
         time.sleep(3)
 
-        """
-        TODO: 登录后发帖，发帖标题为：“Hello World”（不包括引号，下同），发帖内容为：“你好！”
-        """
-
-        """
-        TODO: 更新帖子标题为：“Hello World!”（注意中英文符号），帖子内容为：“你好。”
-        """
-
-        """
-        TODO: 回复刚才的帖子，回复内容为：“你好！”
-        """
-
-        """
-        TODO: 退出登录
-        """
-
 
 if __name__ == "__main__":
     unittest.main()

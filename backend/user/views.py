@@ -247,7 +247,7 @@ def logout(request):
         }
     },
     responses={
-        201: OpenApiResponse(description="用户注册成功"),
+        200: OpenApiResponse(description="用户注册成功"),
         400: OpenApiResponse(description="无效的参数"),
         405: OpenApiResponse(description="方法不允许"),
         500: OpenApiResponse(description="服务器内部错误"),

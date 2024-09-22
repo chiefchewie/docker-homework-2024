@@ -221,7 +221,7 @@ class LoginView(APIView):
     description="用户登出接口",
     summary="用户登出",
 )
-@api_view(["POST"])
+@api_view(["PATCH"])
 @login_required
 def logout(request):
     """

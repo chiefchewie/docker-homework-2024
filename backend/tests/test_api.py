@@ -33,7 +33,6 @@ class APITestCase(TestCase):
         self.assertEqual(json_data['message'], "Error")
         self.assertEqual(response.status_code, 500)
 
-
     def test_logout(self):
         pass
 

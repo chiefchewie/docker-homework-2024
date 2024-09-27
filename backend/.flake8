@@ -1,2 +1,8 @@
 [flake8]
-# TODO: 补充flake8配置文件
+exclude = .git, __pycache__, migrations
+max-line-length = 100
+per-file-ignores = 
+    tests/test_api.py: E501
+    driver.py: E501
+    user/views.py: E722
+    app/settings_prod.py: F401, F403

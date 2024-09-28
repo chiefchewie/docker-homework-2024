@@ -40,7 +40,7 @@ class SeleniumTestCase(LiveServerTestCase):
                 r"C:\Program Files\Google\Chrome\Application\chrome.exe"
             )
         elif platform.system() == "Linux":
-            options.binary_location = "/usr/bin/google-chrome"
+            options.binary_location = "/usr/bin/google-chrome-stable"
         elif platform.system() == "Darwin":
             options.binary_location = (
                 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"

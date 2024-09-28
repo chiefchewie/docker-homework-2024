@@ -59,9 +59,9 @@ def validate_url(url: str):
 
     # check both the protocal and extract domain
     if url.startswith('http://'):
-        domain = url[8:]
+        domain = url[7:]
     elif url.startswith('https://'):
-        domain = url[9:]
+        domain = url[8:]
     else:
         return False
 
@@ -88,7 +88,7 @@ def validate_url(url: str):
 
 def register_params_check(content: dict):
     """
-    TODO: 进行参数检查
+    validate parameters
     """
     if 'username' not in content or not validate_username(content['username']):
         return 'username', False
@@ -113,3 +113,7 @@ def register_params_check(content: dict):
         content['magic_number'] = 0
 
     return "ok", True
+
+
+if __name__ == "__main__":
+    validate_url("https://a.b")

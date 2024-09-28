@@ -8,10 +8,6 @@ from utils.register_params_check import (register_params_check,
 
 
 class TestRegisterParamsCheck(TestCase):
-    """
-    TODO: 在这里补充注册相关测试用例
-    """
-
     # test each individual step used in register_params_check
     def test_username(self):
         # invalid usernames
@@ -73,11 +69,12 @@ class TestRegisterParamsCheck(TestCase):
         # some valid  URLs
         self.assertTrue(validate_url('http://www.google.com'))
         self.assertTrue(validate_url('http://123.9A-Zfa9sfc.c123'))
+        self.assertTrue(validate_url('https://a.b'))
 
     def test_register_params_check(self):
         params = {'username': 'user123', 'password': 'abCD1234-_*^', 'nickname': 'nick',
                   'mobile': '+12.123456789012', 'url': 'https://www.google.com'}
-        
+
         self.assertEqual(register_params_check(params), ('ok', True))
         self.assertEqual(params['magic_number'], 0)
 

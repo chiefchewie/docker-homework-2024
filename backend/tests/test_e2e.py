@@ -7,6 +7,7 @@ from django.core.management import call_command
 from django.test import LiveServerTestCase, override_settings
 from selenium import webdriver
 
+from selenium.webdriver.common.keys import Keys
 from app.settings import BASE_DIR
 from user.controllers import create_user
 from utils.jwt import encrypt_password
@@ -105,20 +106,55 @@ class SeleniumTestCase(LiveServerTestCase):
         time.sleep(3)
 
         """
-        TODO: 登录后发帖，发帖标题为：“Hello World”（不包括引号，下同），发帖内容为：“你好！”
+        登录后发帖，发帖标题为：“Hello World”（不包括引号，下同），发帖内容为：“你好！”
         """
+        self.webclient.find_element_by_xpath('//a[@href="/submit-post"]').click()
+        time.sleep(1)
+
+        self.webclient.find_element_by_xpath('//input[@placeholder="标题"]').clear()
+        self.webclient.find_element_by_xpath('//input[@placeholder="标题"]').send_keys("Hello World")
+        time.sleep(1)
+
+        self.webclient.find_element_by_tag_name('textarea').send_keys("你好！")
+        time.sleep(1)
+
+        self.webclient.find_element_by_xpath('//span[text()="提交"]').click()
+        time.sleep(3)
 
         """
-        TODO: 更新帖子标题为：“Hello World!”（注意中英文符号），帖子内容为：“你好。”
+        更新帖子标题为：“Hello World!”（注意中英文符号），帖子内容为：“你好。”
         """
+        self.webclient.find_element_by_xpath('//a[@href="/edit-post/1"]').click()
+        time.sleep(1)
+
+        self.webclient.find_element_by_xpath('//input[@placeholder="标题"]').send_keys(Keys.CONTROL, 'a')
+        self.webclient.find_element_by_xpath('//input[@placeholder="标题"]').send_keys("Hello World!")
+        time.sleep(1)
+
+        self.webclient.find_element_by_tag_name('textarea').clear()
+        self.webclient.find_element_by_tag_name('textarea').send_keys("你好。")
+        time.sleep(1)
+
+        self.webclient.find_element_by_xpath('//span[text()="提交"]').click()
+        time.sleep(3)
 
         """
-        TODO: 回复刚才的帖子，回复内容为：“你好！”
+        回复刚才的帖子，回复内容为：“你好！”
         """
+        self.webclient.find_element_by_xpath('//a[@href="/reply/1"]').click()
+        time.sleep(1)
+        self.webclient.find_element_by_tag_name('textarea').send_keys("你好！")
+        time.sleep(1)
+        self.webclient.find_element_by_xpath('//span[text()="提交"]').click()
+        time.sleep(1)
 
         """
-        TODO: 退出登录
+        退出登录
         """
+        self.webclient.find_element_by_xpath('//a[@href="/user"]').click()
+        time.sleep(1)
+        self.webclient.find_element_by_xpath('//span[text()="登出"]').click()
+        time.sleep(3)
 
 
 if __name__ == "__main__":

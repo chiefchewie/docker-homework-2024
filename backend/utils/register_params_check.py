@@ -14,34 +14,35 @@ def validate_username(username: str):
     # username must be (one or more alphas) followed by (one or more digits)
     if not re.match(r'^[A-Za-z]+\d+$', username):
         return False
-    
-    return True
-
-
-def validate_password(psswd: str):
-    if type(psswd) is not str:
-        return False
-
-    if len(psswd) < 8 or len(psswd) > 15:
-        return False
-
-    # at least 1 uppercase
-    if len(filter(lambda c: c in string.ascii_uppercase, psswd)) < 1:
-        return False
-
-    # at least 1 lowercase
-    if len(filter(lambda c: c in string.ascii_lowercase, psswd)) < 1:
-        return False
-
-    # at least 1 digit
-    if len(filter(lambda c: c in string.digits, psswd)) < 1:
-        return False
-
-    # at least 1 special character
-    if len(filter(lambda c: c in '-_*^', psswd)) < 1:
-        return False
 
     return True
+
+
+def validate_password(password: str):
+    if type(password) is not str:
+        return False
+
+    if len(password) < 8 or len(password) > 15:
+        return False
+
+    has_uppercase = False
+    has_lowercase = False
+    has_digit = False
+    has_special = False
+
+    for c in password:
+        if c in string.ascii_uppercase:
+            has_uppercase = True
+        elif c in string.ascii_lowercase:
+            has_lowercase = True
+        elif c in string.digits:
+            has_digit = True
+        elif c in '-_*^':
+            has_special = True
+        else:
+            return False
+
+    return has_uppercase and has_lowercase and has_digit and has_special
 
 
 def validate_mobile(mobile: str):
@@ -49,7 +50,7 @@ def validate_mobile(mobile: str):
         return False
 
     # match + then match a digit number then match a '.' then match a 12 digit number
-    return re.match(r'^\+\d{2}\.\d{12}$')
+    return re.match(r'^\+\d{2}\.\d{12}$', mobile)
 
 
 def validate_url(url: str):
@@ -64,7 +65,7 @@ def validate_url(url: str):
     else:
         return False
 
-    if len(domain) > 48:
+    if len(domain) > 48 or '.' not in domain:
         return False
 
     # domain is labels separated by '.'
@@ -95,7 +96,7 @@ def register_params_check(content: dict):
     if 'password' not in content or not validate_password(content['password']):
         return 'password', False
 
-    if 'nickname' not in content:
+    if 'nickname' not in content or type(content['nickname']) is not str:
         return 'nickname', False
 
     if 'mobile' not in content or not validate_mobile(content['mobile']):
@@ -106,7 +107,8 @@ def register_params_check(content: dict):
 
     if 'magic_number' in content:
         magic_num = content['magic_number']
-        return type(magic_num) is int and magic_num >= 0
+        if type(magic_num) is not int or magic_num < 0:
+            return 'magic_number', False
     else:
         content['magic_number'] = 0
 

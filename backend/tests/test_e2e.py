@@ -6,8 +6,8 @@ import unittest
 from django.core.management import call_command
 from django.test import LiveServerTestCase, override_settings
 from selenium import webdriver
-
 from selenium.webdriver.common.keys import Keys
+
 from app.settings import BASE_DIR
 from user.controllers import create_user
 from utils.jwt import encrypt_password
@@ -127,7 +127,8 @@ class SeleniumTestCase(LiveServerTestCase):
         self.webclient.find_element_by_xpath('//a[@href="/edit-post/1"]').click()
         time.sleep(1)
 
-        self.webclient.find_element_by_xpath('//input[@placeholder="标题"]').send_keys(Keys.CONTROL, 'a')
+        self.webclient.find_element_by_xpath(
+            '//input[@placeholder="标题"]').send_keys(Keys.CONTROL, 'a')
         self.webclient.find_element_by_xpath('//input[@placeholder="标题"]').send_keys("Hello World!")
         time.sleep(1)
 
